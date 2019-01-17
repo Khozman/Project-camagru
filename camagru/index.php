@@ -5,7 +5,7 @@
         <?php include "connection.php";?>
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <link href="https://fonts.googleapis.com/css?family=Mali|Monoton|Srisakdi" rel="stylesheet">
-        <!-- <body>
+       <body>
             <section class="intro">
                 <div class="inner">
                     <div class="content">
@@ -16,4 +16,4 @@
             </section>            
         </body>
     </head>
-</html> -->
+</html> 
