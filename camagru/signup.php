@@ -17,41 +17,43 @@ echo "hello";
 		$email = $_POST['email'];
 		$passwd = $_POST['passwd'];
 		$confirm_passwd = $_POST['confirm_passwd'];
-				
+		
+		// Checking whether the new password created is == to the confirmation
 		if($passwd === $confirm_passwd) { 
-			
-		$insert = $conn->prepare("INSERT INTO users (fullnames,email,passwd)
-		values(:fullnames,:email,:passwd)  ");
 
-		$insert->bindParam(':fullnames',$fullnames);
-		$insert->bindParam(':email',$email);
-		$insert->bindParam(':passwd',$passwd);
+			$insert = $conn->prepare("INSERT INTO users (fullnames,email,passwd)
+			values(:fullnames,:email,:passwd)  ");
 
-		$insert->execute();
+			$insert->bindParam(':fullnames',$fullnames);
+			$insert->bindParam(':email',$email);
+			$insert->bindParam(':passwd',$passwd);
+
+			$insert->execute();
 				
-		}
-	}	elseif(isset($_POST['signin'])){
-
-		$email = $_POST['email'];
-		$passwd = $_POST['passwd'];
-
-		$select = $conn->prepare("SELECT * FROM users WHERE email='$email' and passwd='$passwd");
-		$select->setFetchMode(PDO::FETCH_ASSOC);
-		$select->execute();
-		$data=$select->fetch();
-
-		if($data['email']!=$email and $data['passwd']!=$passwd) {
-
-			echo "You have entered an invalid email or password!";
-
-		} elseif($data['email']==$email and $data['passwd']==$passwd) {
-
-			$_SESSION['email']=$data['email'];
-			$_SESSION['fullnames']=$data['fullnames'];
 		}
 	}
+		// elseif(isset($_POST['signin'])){
 
-    // $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+	// 	$email = $_POST['email'];
+	// 	$passwd = $_POST['passwd'];
+
+	// 	$select = $conn->prepare("SELECT * FROM users WHERE email='$email' and passwd='$passwd");
+	// 	$select->setFetchMode(PDO::FETCH_ASSOC);
+	// 	$select->execute();
+	// 	$data=$select->fetch();
+
+	// 	if($data['email']!=$email and $data['passwd']!=$passwd) {
+
+	// 		echo "You have entered an invalid email or password!";
+
+	// 	} elseif($data['email']==$email and $data['passwd']==$passwd) {
+
+	// 		$_SESSION['email']=$data['email'];
+	// 		$_SESSION['fullnames']=$data['fullnames'];
+	// 	}
+	// }
+
+    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 } catch(PODException $e) {
 	echo $sql . "<br>" . $e->getMessage();
@@ -74,7 +76,7 @@ echo "hello";
 						<input type="email" name="email" placeholder="Enter Email adress" required>
 						<p>Create Password</p>
 						<input type="password" name="passwd" placeholder="New Password" required>
-						<input type="password" name="cornfirm_passwd" placeholder="Confirm Password" required>
+						<input type="password" name="confirm_passwd" placeholder="Confirm Password" required>
 						<input type="submit" name="signup" value="SIGN UP"><br/>
 						<a href="">Already have an account?</a>
 					</form>
