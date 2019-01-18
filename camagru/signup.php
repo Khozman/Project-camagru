@@ -9,7 +9,7 @@ try {
 	$conn = new PDO("mysql:host=$server;dbname=$db", $username, $password);
 	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	
-echo "hello";
+// echo "hello";
 
 	if(isset($_POST['signup'])){
 		
@@ -19,17 +19,27 @@ echo "hello";
 		$confirm_passwd = $_POST['confirm_passwd'];
 		
 		// Checking whether the new password created is == to the confirmation
-		if($passwd === $confirm_passwd) { 
+		if($passwd === $confirm_passwd)
+		{
 
-			$insert = $conn->prepare("INSERT INTO users (fullnames,email,passwd)
-			values(:fullnames,:email,:passwd)  ");
+			$qrry = "SELECT * From users Where email=$email";
+			$res = $conn->query($qrry);
 
-			$insert->bindParam(':fullnames',$fullnames);
-			$insert->bindParam(':email',$email);
-			$insert->bindParam(':passwd',$passwd);
+			if (!$res)
+			{
 
-			$insert->execute();
-				
+				$insert = $conn->prepare("INSERT INTO users (fullnames,email,passwd)
+				values(:fullnames,:email,:passwd)  ");
+
+				$insert->bindParam(':fullnames',$fullnames);
+				$insert->bindParam(':email',$email);
+				$insert->bindParam(':passwd',$passwd);
+
+				$insert->execute();
+			}
+			else() {
+
+			}
 		}
 	}
 		// elseif(isset($_POST['signin'])){
