@@ -98,6 +98,7 @@ try {
 	<head>
 		<title>Sigup with Camagru</title>
 		<link rel="stylesheet" type="text/css" href="css/style1.css">
+	</head>
 		<body>
 			<div class="loginbox">
 				<img src="pictures/avatar.png" class="avatar">
@@ -114,9 +115,8 @@ try {
 						<a href="">Already have an account?</a>
 					</form>
 			</div>
-
+			<footer>Akhosa Camagru 2018 &copy;</footer>
 		</body>
-	</head>
 </html>
 
 
