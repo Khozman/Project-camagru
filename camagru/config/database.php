@@ -17,7 +17,9 @@ try {
     id INT(6) UNSIGNED AUTO_INCREMENT PRIMARY KEY,
     fullnames VARCHAR(30) NOT NULL,
     email VARCHAR(30) NOT NULL,
-    passwd VARCHAR(256) NOT NULL
+    passwd VARCHAR(256) NOT NULL,
+    code VARCHAR(255) NOT NULL,
+    activate INT(1) NOT NULL DEFAULT '0'
     )";
 
     // use exec(), no results are returned

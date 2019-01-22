@@ -1,5 +1,5 @@
  <?php
-//session_start();
+session_start();
 $server = "localhost";
 $username = "root";
 $password = "2435465674";
@@ -9,7 +9,7 @@ try {
 	$conn = new PDO("mysql:host=$server;dbname=$db", $username, $password);
 	$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	
-// echo "hello";
+// echo "hy";
 
 	if(isset($_POST['signup'])){
 		
@@ -17,53 +17,76 @@ try {
 		$email = $_POST['email'];
 		$passwd = $_POST['passwd'];
 		$confirm_passwd = $_POST['confirm_passwd'];
+
+		
 		
 		// Checking whether the new password created is == to the confirmation
-		if($passwd === $confirm_passwd)
+		if (!preg_match('/^(?=.*\d)(?=.*[A-Za-z])[0-9A-Za-z!@#$%]{8,12}$/', $passwd))
 		{
+			echo "<script> alert ('password must contain at least one number, at least one letter, at least one special character and  there have to be 8-12 characters'); </script>";
+		}
+		else if($passwd === $confirm_passwd)
+		{
+			
 
-			$qrry = "SELECT * From users Where email=$email";
-			$res = $conn->query($qrry);
-
-			if (!$res)
+			// Search whether the email entered exists in the data base.
+			$query = "SELECT * From users";
+			$result = $conn->query($query);
+			$exists = 0;
+			while($stmt = $result->fetch())
 			{
+				if ($stmt['email'] == $email)
+				{
+					echo 'The email you have entered alreay exists!';
+					$exists = 1;
+					break ;
+				}
+			}
+			if ($exists == 0) {
 
-				$insert = $conn->prepare("INSERT INTO users (fullnames,email,passwd)
-				values(:fullnames,:email,:passwd)  ");
+				// Hashing of password..
+				// $passwd = hash('whirlpool', test_input($_POST['passwd']));
+        		// $confirm_passwd = hash('whirlpool', test_input($_POST['confirm_passwd']));
+
+				
+				echo 'At Successfully created!<br>';
+				$hashed_pass = hash('sha256', $passwd);
+				$code = md5(rand(0,1000));
+				$insert = $conn->prepare("INSERT INTO camagru.users (fullnames,email,passwd,code)
+				VALUES (:fullnames,:email,:hashed_pass,:code) ");
 
 				$insert->bindParam(':fullnames',$fullnames);
 				$insert->bindParam(':email',$email);
-				$insert->bindParam(':passwd',$passwd);
+				$insert->bindParam(':hashed_pass',$hashed_pass);
+				$insert->bindParam(':code',$code);
 
-				$insert->execute();
-			}
-			else() {
+				if ($insert->execute())
+				{
+					// verification on email..
+					$folder = basename(__DIR__);
+					$link = "http://$_SERVER[HTTP_HOST]/$folder/" . "verification.php?email=".$email."&code=".$code;
+					$body = "Your verification link is ".$link;
+					$subject = "CAMAGRU_ : Account Confimation mail";
+					$mailHeaders = "From: Camagru\r\n";
+					if (mail($email,$subject, $body, $mailHeaders))
+					{
+						echo "Confimation link has been sent to ".htmlspecialchars($email);
+					}
+					else
+					{
+						echo "email not sent";
+					}
+				}
 
+				unset($_POST);
 			}
+
+		}	else {
+
+			echo "Passwords do not match.<br/>You will be redirected...";
+        	header('refresh:3; url="index.php"');
 		}
 	}
-		// elseif(isset($_POST['signin'])){
-
-	// 	$email = $_POST['email'];
-	// 	$passwd = $_POST['passwd'];
-
-	// 	$select = $conn->prepare("SELECT * FROM users WHERE email='$email' and passwd='$passwd");
-	// 	$select->setFetchMode(PDO::FETCH_ASSOC);
-	// 	$select->execute();
-	// 	$data=$select->fetch();
-
-	// 	if($data['email']!=$email and $data['passwd']!=$passwd) {
-
-	// 		echo "You have entered an invalid email or password!";
-
-	// 	} elseif($data['email']==$email and $data['passwd']==$passwd) {
-
-	// 		$_SESSION['email']=$data['email'];
-	// 		$_SESSION['fullnames']=$data['fullnames'];
-	// 	}
-	// }
-
-    $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
 } catch(PODException $e) {
 	echo $sql . "<br>" . $e->getMessage();
@@ -73,7 +96,7 @@ try {
 
 <html>
 	<head>
-		<title>Login Form Design</title>
+		<title>Sigup with Camagru</title>
 		<link rel="stylesheet" type="text/css" href="css/style1.css">
 		<body>
 			<div class="loginbox">
