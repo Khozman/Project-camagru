@@ -29,7 +29,7 @@ if (isset($_POST['LOGIN']) && !empty($_POST['email']) && !empty($_POST['passwd']
 }
 else
 {
-    echo "<script>alert ('Please enter password or email'); </script>";
+    echo "Please enter password or email";
 }
 
 
@@ -39,6 +39,7 @@ else
 	<head>
 		<title>Login to Camagru</title>
 		<link rel="stylesheet" type="text/css" href="css/style1.css">
+    </head>
 		<body>
 			<div class="loginbox">
 				<img src="pictures/avatar.png" class="avatar">
@@ -49,10 +50,9 @@ else
 						<p>Password</p>
 						<input type="password" name="passwd" placeholder="Password" required>
 						<input type="submit" name="LOGIN" value="LOGIN"><br/>
-						<a href="">Don't have an account?</a>
+						<a href="signup.php">Don't have an account?</a>
 					</form>
 			</div>
-
-		</body>
-	</head>
+    <footer>Akhosa Camagru 2018 &copy;</footer>
+    </body>
 </html>

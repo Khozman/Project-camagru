@@ -65,8 +65,10 @@ try {
 					// verification on email..
 					$folder = basename(__DIR__);
 					$link = "http://$_SERVER[HTTP_HOST]/$folder/" . "verification.php?email=".$email."&code=".$code;
-					$body = "Your verification link is ".$link;
-					$subject = "CAMAGRU_ : Account Confimation mail";
+					$body = "Hello $fullnames!
+					 
+Here is your verification link to Camagru, hope you enjoy the journey of taking pictures with us:".$link;
+					$subject = "Camagry Account Confimation mail";
 					$mailHeaders = "From: Camagru\r\n";
 					if (mail($email,$subject, $body, $mailHeaders))
 					{
@@ -112,7 +114,7 @@ try {
 						<input type="password" name="passwd" placeholder="New Password" required>
 						<input type="password" name="confirm_passwd" placeholder="Confirm Password" required>
 						<input type="submit" name="signup" value="SIGN UP"><br/>
-						<a href="">Already have an account?</a>
+						<a href="login.php">Already have an account?</a>
 					</form>
 			</div>
 			<footer>Akhosa Camagru 2018 &copy;</footer>
