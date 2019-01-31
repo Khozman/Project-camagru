@@ -3,7 +3,9 @@ session_start();
 ini_set("display_errors",1);
 error_reporting(E_ALL);
 require ("home.php");
-// $app = new DemoLib();
+
+//gfrgfrgerre
+
 $register_error_message = "";
 $message = "";
 $id = $_SESSION['id'];
