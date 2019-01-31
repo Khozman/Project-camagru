@@ -42,8 +42,13 @@ try {
 					break ;
 				}
 			}
+			
 			if ($exists == 0) {
 
+				if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+					echo "Invalid email adress";
+				}
+				else{
 				// Hashing of password..
 				// $passwd = hash('whirlpool', test_input($_POST['passwd']));
         		// $confirm_passwd = hash('whirlpool', test_input($_POST['confirm_passwd']));
@@ -59,6 +64,7 @@ try {
 				$insert->bindParam(':email',$email);
 				$insert->bindParam(':hashed_pass',$hashed_pass);
 				$insert->bindParam(':code',$code);
+
 
 				if ($insert->execute())
 				{
@@ -81,6 +87,7 @@ Here is your verification link to Camagru, hope you enjoy the journey of taking 
 				}
 
 				unset($_POST);
+				}
 			}
 
 		}	else {

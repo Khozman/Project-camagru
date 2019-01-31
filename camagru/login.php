@@ -5,6 +5,7 @@ session_start();
 require ('connection.php');
 if (isset($_POST['LOGIN']) && !empty($_POST['email']) && !empty($_POST['passwd']))
 {
+    $_SESSION['email']= $_POST[email];
     $database = database();
     $email = $_POST['email'];
     $passwd = $_POST['passwd'];

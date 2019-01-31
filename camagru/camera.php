@@ -1,3 +1,4 @@
+<?php include "authentication.php";?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,9 +14,14 @@
          <video id="video" width="400" height="300"></video>
          <a href="#" id="capture" class="booth-capture-button">Take Photo</a>
           <canvas id="canvas" width="400" height="300"></canvas>
+               <form action="save.php" method="POST">
+                  <input type="hidden" name="img" id="img">
+                  <input class="box" type="text" name="cap" placeholder="Add image caption">
+                  <input class="button" type="submit" value="SAVE">
+               </form>
           <img id="photo" src="http://placekitten.com/g/400/300" alt="Your photo">
       </div>
             <script src="js/photo.js"></script>   
 </body>
 </html>        
-            
+         
