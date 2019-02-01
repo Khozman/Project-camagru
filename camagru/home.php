@@ -1,15 +1,13 @@
-
-
-<!DOCTYPE>
+<!DOCTYPE html>
 <html lang="en">
-    <Head>
+    <head>
         <meta charset="UTF-8">
         <title>Home page</title>
         <?php include "connection.php";?>
         <?php include "authentication.php";?>
         <link rel="stylesheet" type="text/css" href="css/bootstrap.css">
         <link href="https://fonts.googleapis.com/css?family=Mali|Monoton|Srisakdi" rel="stylesheet">
-    </Head>
+    </head>
        <body>
 
        <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
@@ -45,6 +43,6 @@
   </div>
 </nav>
 
-        </body>
+</body>
         
 </html>
