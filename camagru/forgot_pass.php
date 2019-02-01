@@ -1,4 +1,4 @@
-<!-- <?php
+<?php
 session_start();
 $sessData = !empty($_SESSION['sessData'])?$_SESSION['sessData']:'';
 if(!empty($sessData['status']['msg'])){
@@ -18,4 +18,6 @@ if(!empty($sessData['status']['msg'])){
             </div>
         </form>
     </div>
-</div> -->
+</div>
+
+
